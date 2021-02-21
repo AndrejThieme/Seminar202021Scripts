@@ -80,6 +80,8 @@ UPDATE tr_blocks_query SET diff = (SELECT ((date_part('day', ts - processed_time
 
 CREATE TABLE counts AS SELECT hash_b, COUNT(*) as count from tr_blocks_query GROUP BY hash_b;
 
+ALTER TABLE counts RENAME COLUMN count to inclusion_index;
+
 CREATE TABLE tr_blocks_query_new as (select * from tr_blocks_query left join counts using(hash_b));
 
 DROP TABLE tr_blocks_query;
