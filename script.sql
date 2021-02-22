@@ -46,6 +46,7 @@ ALTER TABLE block_time_analysis_2 RENAME TO block_time_analysis;
 
 --################################################################################################################
 --Table to determine time for transactions to be included in blockchain (node)
+--
 --hash_b: hash of transaction
 --block_number, blockhash_b: info of block where transaction was found
 --ts: processed time of transaction in DB
@@ -93,13 +94,6 @@ CREATE TABLE over5 AS (SELECT year, month, sum(count) FROM andata WHERE inclusio
 DELETE FROM anData WHERE inclusion_index > 5;
 
 INSERT INTO anData (year, month, inclusion_index, count) SELECT year, month, 6, sum FROM over5;
-
---####################################################################################
---list disctinc dates WHERE node wAS down
--- blocknumber is SELECTred because this is the first block WHERE node wAS uptodate
---#####################################################################################
-
-SELECT DISTINCT date(b1_pt) date1, date(b2_pt) date2, avg(downtime_node) FROM block_time_analysis WHERE b1_bn > 2650165 group by date1, date2 ORDER BY avg(downtime_node) desc;
 
 
 
